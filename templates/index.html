@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}Overview | Integrated Machine Learning Laboratory Dashboard{% endblock %}
+{% block breadcrumb %}Overview{% endblock %}
+
+{% block content %}
+<!-- ===================================================================
+     1. STUDENT PROJECT PROFILE CARD (GUARANTEED NO OVERLAP)
+     =================================================================== -->
+<section class="student-profile-card" id="student-profile" aria-label="Student Identity Information">
+  <div class="student-identity-left">
+    <div class="college-logo-container">
+      <img src="{{ url_for('static', filename='images/college-logo.png') }}" 
+           alt="D. Y. Patil College of Engineering and Technology logo" 
+           class="college-logo-img">
+    </div>
+    <div class="student-info-block">
+      <div class="student-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        STUDENT PROJECT PROFILE
+      </div>
+      <h1 class="student-name-heading">{{ student.name }}</h1>
+      <div class="student-college-line">{{ student.college }}</div>
+      <div class="student-location-line">{{ student.location }}</div>
+      <div class="student-pill-row">
+        <span class="student-tag tag-primary">{{ student.course }}</span>
+        <span class="student-tag">{{ student.class }}</span>
+        <span class="student-tag">Roll: {{ student.roll_no }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="student-contact-right">
+    <div class="contact-meta-item">
+      <span class="contact-meta-label">Roll Number</span>
+      <span class="contact-meta-value">{{ student.roll_no }}</span>
+    </div>
+    <div class="contact-meta-item">
+      <span class="contact-meta-label">Subject</span>
+      <span class="contact-meta-value">{{ student.subject }}</span>
+    </div>
+    <div class="contact-meta-item">
+      <span class="contact-meta-label">Email Address</span>
+      <span class="contact-meta-value"><a href="mailto:{{ student.email }}">{{ student.email }}</a></span>
+    </div>
+    <div class="contact-meta-item">
+      <span class="contact-meta-label">Mobile Number</span>
+      <span class="contact-meta-value"><a href="tel:{{ student.phone }}">{{ student.phone }}</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     2. COMPACT HERO SECTION & LABORATORY SUMMARY CARDS
+     =================================================================== -->
+<section class="hero-card" id="overview">
+  <div class="hero-main-content">
+    <div class="hero-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><line x1="12" y1="9" x2="18.5" y2="6.5"/><line x1="12" y1="15" x2="5.5" y2="18.5"/></svg>
+      ONE WORKSPACE. MULTIPLE MODELS.
+    </div>
+    <h2 class="hero-title">{{ student.project_title }}</h2>
+    <p class="hero-subtitle">
+      Explore, execute, and analyse machine learning laboratory experiments through one unified application powered by trained models, real datasets, and interactive scientific visualizations.
+    </p>
+    <div class="hero-actions-row">
+      <a href="{{ url_for('experiments') }}" class="btn-primary-action">
+        <span>Explore All 12 Experiments</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+      <a href="{{ url_for('training') }}" class="btn-secondary-action">
+        <span>Model Training Lab</span>
+      </a>
+      <a href="{{ url_for('explainability') }}" class="btn-secondary-action">
+        <span>Explainable AI (XAI)</span>
+      </a>
+      <a href="{{ url_for('reports') }}" class="btn-secondary-action">
+        <span>Lab Reports (PDF)</span>
+      </a>
+      <a href="{{ url_for('comparison') }}" class="btn-secondary-action">
+        <span>Model Comparison</span>
+      </a>
+      <a href="{{ url_for('learning') }}" class="btn-secondary-action">
+        <span>Viva Prep & Theory</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Verified Statistics Row -->
+  <div class="hero-stats-row" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+    <div class="stat-box">
+      <div class="stat-icon-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">12</span>
+        <span class="stat-label">Total Laboratory Modules</span>
+      </div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-icon-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{ regression_count }} / {{ classification_count }}</span>
+        <span class="stat-label">Regression / Classification</span>
+      </div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-icon-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{ available_saved_models }} Models</span>
+        <span class="stat-label">Verified Pre-Trained Artifacts</span>
+      </div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-icon-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{ datasets_count }} Datasets</span>
+        <span class="stat-label">Benchmark CSV Files</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     3. RECENT ACTIVITY & METRIC SUMMARY
+     =================================================================== -->
+<div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr); gap: 24px;">
+  <!-- Recent Training Events -->
+  <div class="form-card">
+    <div class="form-panel-header">
+      <div>
+        <h3 class="form-panel-title">Recent Training & Evaluation Activity</h3>
+        <span style="font-size: 11.5px; color: var(--slate-500);">Actual training runs recorded during laboratory sessions.</span>
+      </div>
+      <a href="{{ url_for('history') }}" class="btn-sample-fill">View Full History →</a>
+    </div>
+
+    <div class="table-responsive-container">
+      <table class="data-spec-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Experiment</th>
+            <th>Algorithm</th>
+            <th>Held-out Metric</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in recent_history %}
+          <tr>
+            <td><small class="code-pill">{{ r.timestamp }}</small></td>
+            <td><strong>{{ r.experiment_title }}</strong></td>
+            <td><small>{{ r.algorithm }}</small></td>
+            <td>
+              {% if r.category == 'Regression' %}
+                <span class="student-tag tag-primary">R²: {{ r.metrics.r2_score }}</span>
+              {% else %}
+                <span class="student-tag tag-primary">Acc: {{ r.metrics.accuracy }}%</span>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge-cat {% if r.is_baseline %}badge-cat-regression{% else %}badge-cat-classification{% endif %}">
+                {{ r.status }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Laboratory Quick Start Guide -->
+  <div class="spec-record-box">
+    <h3 class="spec-record-title">Laboratory Workflow Guidelines</h3>
+    <div style="display: flex; flex-direction: column; gap: 12px; font-size: 12px; color: var(--navy-800);">
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <span class="exp-num-badge">1</span>
+        <div>
+          <strong>Explore Datasets:</strong> Inspect raw features, data distributions, correlation heatmaps, and missing values in the Dataset Explorer.
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <span class="exp-num-badge">2</span>
+        <div>
+          <strong>Train & Tune:</strong> Configure stratified train/test splits and algorithm hyperparameters without data leakage.
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <span class="exp-num-badge">3</span>
+        <div>
+          <strong>Evaluate with Visualizations:</strong> Inspect held-out performance, ROC curves, residual errors, and decision boundaries.
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <span class="exp-num-badge">4</span>
+        <div>
+          <strong>Compare Models:</strong> Benchmark comparable models side-by-side on compatible data splits.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================================
+     4. EXPERIMENT PREVIEWS (QUICK ACCESS GRID)
+     =================================================================== -->
+<div class="section-header-block" style="margin-top: 12px;">
+  <div>
+    <h2 class="section-title">Laboratory Experiments (01—11)</h2>
+    <p class="section-desc">Consolidated machine learning algorithms with pre-trained models and verified evaluation pipelines.</p>
+  </div>
+  <a href="{{ url_for('experiments') }}" class="btn-sample-fill">Open Filterable Library →</a>
+</div>
+
+<div class="experiments-grid" style="margin-top: 14px;">
+  {% for key, item in algorithms.items() %}
+  <article class="experiment-card">
+    <div class="card-top-row">
+      <span class="exp-num-badge">EXP {{ item.num }}</span>
+      <span class="badge-cat {{ 'badge-cat-regression' if item.category == 'Regression' else 'badge-cat-classification' }}">
+        {{ item.category }}
+      </span>
+    </div>
+
+    <h3 class="card-algo-title">{{ item.title }}</h3>
+    <p class="card-algo-desc">{{ item.description }}</p>
+
+    <div class="card-meta-list">
+      <div class="card-meta-row">
+        <span class="card-meta-k">Input</span>
+        <span class="card-meta-v">{{ item.input_feature }}</span>
+      </div>
+      <div class="card-meta-row">
+        <span class="card-meta-k">Dataset</span>
+        <span class="card-meta-v">{{ item.dataset_name }}</span>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+      <a href="{{ url_for('algorithm', key=key) }}" class="card-action-btn" style="justify-content: center;">
+        <span>Predict</span>
+      </a>
+      <a href="{{ url_for('results', key=key) }}" class="card-action-btn" style="justify-content: center; background-color: var(--teal-50); color: var(--teal-700);">
+        <span>Evaluate</span>
+      </a>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
